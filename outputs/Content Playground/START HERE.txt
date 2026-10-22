@@ -1,0 +1,13 @@
+CONTENT PLAYGROUND
+
+Open Content Playground.html in your browser. Keep the file in one location and use the same browser so your locally saved plans remain accessible.
+
+The first month contains 12 editable starter ideas, inspired by your restaurant client. These are examples, not a migration of the April plan. For a blank monthly plan, select another month and click Fresh monthly template.
+
+Click any card to edit its brief, image reference, script, props and shot list. Inspiration library keeps links and uploaded screenshots. Shoot day groups the shots by location. Clients & templates lets you add clients and customize monthly content counts.
+
+Export plan offers browser Print / Save as PDF and an editable Word-compatible .doc download. The Word export is HTML-based, not .docx; Word may show a format notice when opening it.
+
+Data lives in this browser on this device. Clearing browser data can remove plans. Use Backup regularly. Restore replaces the studio with the selected backup.
+
+The planner works locally. Google Fonts requires an internet connection; system fonts are used offline. Reference links open the original sites. No social account connection, automated research, or publishing is included.
