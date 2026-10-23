@@ -43,3 +43,9 @@ python3 -m http.server 8000 --directory dist
 ```
 
 Visit http://localhost:8000. The hosted version and standalone file may have separate browser storage; use Backup and Restore to transfer plans.
+
+## Automatic inspiration covers
+
+Pasting a public inspiration URL in a content brief or the inspiration library starts a cover lookup. YouTube uses its public thumbnail URL; direct JPG, PNG and WebP links are used as images. Other pages use Microlink's public metadata endpoint, which receives the pasted URL and has a daily free quota. No API key or installation is required. Restricted posts, including some Instagram links, may not provide an accessible cover.
+
+Uploaded images take priority. Use **Fetch cover from link** to retry an unavailable or expired image, or upload a screenshot. Link covers are remote images and require network access; uploaded images remain stored locally. Covers are included in the export markup and backups, but remote images may expire or be blocked by the source.
