@@ -120,3 +120,12 @@ dialog{overflow-y:auto;overscroll-behavior:contain;max-height:90dvh}
     .optional-details summary span { display:block; margin:5px 0; }
   }
 }
+
+/* Private accounts and shared workspaces. */
+#accountGate{display:none;min-height:100dvh;padding:40px 20px;background:radial-gradient(ellipse at 20% 15%,#e5edcf,transparent 55%),radial-gradient(ellipse at 85% 80%,#e9dff3,transparent 50%),var(--paper);place-items:center}
+.cloud-locked>aside,.cloud-locked>main,.cloud-locked>#editor,.cloud-locked>#exportDialog,.cloud-locked>#teamDialog{display:none!important}
+.cloud-locked #accountGate{display:grid}
+.account-card{max-width:560px;width:100%;padding:38px;background:#fffdf7;border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 50px #292a2608}
+.account-card .brand{margin:0 0 35px;font-size:24px}.account-card h1{font-size:36px;line-height:1.2}.account-card form{display:grid;gap:20px;margin:22px 0}.account-card input{font-size:17px;width:100%}.account-card .filters{margin-top:20px}.account-card #accountMessage{font-size:15px;line-height:1.7;overflow-wrap:anywhere;color:#505b43}.account-card #legacyBackup{margin-top:18px}
+#accountBar{padding:15px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#eef0e3}#accountBar>div{display:flex;align-items:center;gap:10px;flex-wrap:wrap}#accountBar label{font-size:13px;font-weight:600}#accountBar select{max-width:280px;font-size:15px}#accountIdentity{font-size:13px;color:#565c4e;overflow-wrap:anywhere}#accountBar button{font-size:14px}#cloudNotice{padding:20px;border:1px solid #c5b890;background:#fff0cb;border-radius:12px;margin:0 0 24px;line-height:1.7}#cloudNotice[hidden]{display:none}#cloudNotice p{margin:0 0 14px}#cloudNotice button{margin:0 10px 8px 0}#teamDialog form{display:grid;gap:14px;margin:20px 0}#teamDialog h3{margin-top:28px}#teamDialog p{overflow-wrap:anywhere}#teamMessage{color:#65452b}button:disabled{opacity:.55;cursor:wait}
+@media(max-width:700px){#accountBar{padding:16px}#accountBar>div{width:100%}.account-card{padding:25px}.account-card h1{font-size:30px}#accountBar select{max-width:100%;min-width:0}}

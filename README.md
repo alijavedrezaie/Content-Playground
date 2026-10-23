@@ -49,3 +49,13 @@ Visit http://localhost:8000. The hosted version and standalone file may have sep
 Pasting a public inspiration URL in a content brief or the inspiration library starts a cover lookup. YouTube uses its public thumbnail URL; direct JPG, PNG and WebP links are used as images. Other pages use Microlink's public metadata endpoint, which receives the pasted URL and has a daily free quota. No API key or installation is required. Restricted posts, including some Instagram links, may not provide an accessible cover.
 
 Uploaded images take priority. Use **Fetch cover from link** to retry an unavailable or expired image, or upload a screenshot. Link covers are remote images and require network access; uploaded images remain stored locally. Covers are included in the export markup and backups, but remote images may expire or be blocked by the source.
+
+## Accounts, private plans and teams
+
+Cloud account support is prepared in `src/cloud.js` and activates when `src/cloud-config.js` has a Supabase Project URL and public publishable key. Until configured, the existing local planner keeps working. Never put database passwords or secret/service_role keys into browser code.
+
+Follow `supabase/SETUP.md`, run `supabase/schema.sql`, then verify its access rules with `supabase/verify-access.sql`. The account version provides email/password signup, login, password reset, private workspaces, owner-managed team invitations, account-scoped caches and revision-checked cloud saves. Each teammate gets private plans plus access to teams they join.
+
+Existing browser plans are not deleted or automatically assigned to any account. Back up October, sign in using its original browser/address, and use the private import notice. Verify October from a second device before removing the legacy browser copy.
+
+Run the local migration and mocked sync checks with `node tests/cloud-data.test.cjs`. Live authentication and database permissions still require verification against the configured Supabase project.

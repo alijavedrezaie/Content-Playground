@@ -16,7 +16,7 @@ def main():
     for directory in (DIST, STANDALONE, RELEASES):
         directory.mkdir(parents=True, exist_ok=True)
 
-    for name in ("index.html", "style.css", "app.js"):
+    for name in ("index.html", "style.css", "app.js", "cloud-config.js", "cloud.js"):
         shutil.copyfile(SOURCE / name, DIST / name)
 
     html = (SOURCE / "index.html").read_text(encoding="utf-8")
@@ -27,6 +27,9 @@ def main():
         '<script src="app.js"></script>',
         "<script>" + (SOURCE / "app.js").read_text(encoding="utf-8") + "</script>",
     )
+    for name in ("cloud-config.js", "cloud.js"):
+        html = html.replace('<script src="' + name + '"></script>',
+                            "<script>" + (SOURCE / name).read_text(encoding="utf-8") + "</script>")
     (STANDALONE / "Content Playground.html").write_text(html, encoding="utf-8")
 
     with ZipFile(RELEASES / "Content Playground.zip", "w", ZIP_DEFLATED) as archive:
