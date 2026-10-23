@@ -72,12 +72,12 @@ function openItem(id,from){
       ${field('date','Publish date',draft.date,'date',true)}
       ${field('concept','What’s the idea?',draft.concept,'textarea',true)}
       ${field('caption','Caption',draft.caption,'textarea',true)}
-    </div>
-    <details class="optional-details"><summary>Script & references <span>Optional</span></summary>
-      <div class="fieldgrid">
-        ${field('slides','Slides / script',draft.slides,'textarea',true)}
         ${field('reference','Inspiration link',draft.reference,'url',true)}
         ${safeURL(draft.reference)?`<a class="full" target="_blank" rel="noopener noreferrer" href="${esc(draft.reference)}">Open inspiration ↗</a>`:''}
+    </div>
+    <details class="optional-details"><summary>Script & image <span>Optional</span></summary>
+      <div class="fieldgrid">
+        ${field('slides','Slides / script',draft.slides,'textarea',true)}
         ${imageField()}
       </div>
     </details>
@@ -93,6 +93,20 @@ function drawShots(){$('#shotsEditor').innerHTML=(draft.shots||[]).map((s,n)=>`<
 function collectShots(){document.querySelectorAll('[data-shot]').forEach(el=>{const n=Number(el.dataset.shot);el.querySelectorAll('input,textarea').forEach(inp=>draft.shots[n][inp.name.split('_').slice(2).join('_')]=inp.value)})}
 function openIdea(id){editing=id||null;editKind='idea';draft=structuredClone(id?state.ideas.find(i=>i.id===id):{id:uid(),clientId,type:'Reel',title:'',concept:'',reference:'',image:'',pillar:''});$('#dialogTitle').textContent='Keep that creative spark.';$('#fields').innerHTML=`<div class="fieldgrid">${field('title','Give this inspiration a name',draft.title,'input',true)}${field('type','Best suited for',draft.type,'select',false,types)}${field('reference','Reference URL',draft.reference,'url',true)}${safeURL(draft.reference)?`<a class="full" href="${esc(draft.reference)}" target="_blank" rel="noopener noreferrer">Open reference ↗</a>`:''}${field('concept','What works / how I could adapt it',draft.concept,'textarea',true)}${imageField()}</div>${id?'<button type="button" id="useIdea" style="margin-top:20px">↗ Turn into content for '+esc(monthLabel())+'</button>':''}`;setupImage();showEditor();if(id)$('#useIdea').onclick=()=>{let data=Object.fromEntries(new FormData($('#editForm')));const from={...draft,...data,status:'Idea'};delete from.id;delete from.clientId;$('#editor').close();openItem(null,from)}}
 function openClient(id){editing=id||null;editKind='client';draft=structuredClone(id?state.clients.find(c=>c.id===id):{id:uid(),name:'',audience:'',tone:'',pillars:'',counts:[4,4,4]});$('#dialogTitle').textContent='A little brand context.';$('#fields').innerHTML=`<div class="fieldgrid">${field('name','Client name',draft.name,'input',true)}${field('audience','Audience',draft.audience,'textarea',true)}${field('tone','Tone of voice',draft.tone,'textarea',true)}${field('pillars','Content pillars (comma separated)',draft.pillars,'textarea',true)}${types.map((t,k)=>field('count'+k,t+'s per month',draft.counts[k],'number')).join('')}</div><p class="muted">Template counts apply to fresh months. Existing plans stay as they are.</p>`;document.querySelectorAll('input[type=number]').forEach(i=>{i.min=0;i.max=30});showEditor()}
+// Require both ends of a gesture outside the panel so dragging from a field
+// onto the backdrop does not dismiss the form.
+const editorDialog=$('#editor');
+let startedOutsideEditor=false;
+function outsideEditor(event){
+  const rect=editorDialog.getBoundingClientRect();
+  return event.target===editorDialog&&(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom);
+}
+editorDialog.addEventListener('pointerdown',event=>{startedOutsideEditor=outsideEditor(event)});
+editorDialog.addEventListener('pointercancel',()=>{startedOutsideEditor=false});
+editorDialog.addEventListener('click',event=>{
+  if(startedOutsideEditor&&outsideEditor(event))editorDialog.close();
+  startedOutsideEditor=false;
+});
 function showEditor(){$('#deleteItem').hidden=!editing||editKind==='client';$('#editor').showModal()}
 $('#editForm').onsubmit=e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target));Object.keys(data).filter(k=>k.startsWith('shot_')).forEach(k=>delete data[k]);if(editKind==='item')collectShots();Object.assign(draft,data);if(editKind==='client'){draft.counts=[0,1,2].map(k=>Math.min(30,Math.max(0,Number(data['count'+k])||0)));[0,1,2].forEach(k=>delete draft['count'+k])}const list=editKind==='item'?state.items:editKind==='idea'?state.ideas:state.clients;const index=list.findIndex(i=>i.id===editing);if(index>=0)list[index]=draft;else list.push(draft);if(editKind==='client')clientId=draft.id;save();$('#editor').close();render();toast('Saved. One step closer to making it happen.')};
 $('#deleteItem').onclick=()=>{if(!confirm('Delete this '+(editKind==='idea'?'inspiration':'content brief')+'?'))return;const k=editKind==='idea'?'ideas':'items';state[k]=state[k].filter(i=>i.id!==editing);save();$('#editor').close();render()};
