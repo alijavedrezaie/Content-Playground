@@ -37,3 +37,38 @@ dialog{overflow-y:auto;overscroll-behavior:contain;max-height:90dvh}
   .metric{min-width:0}.metric i{font-size:16px;padding:7px}.hero{padding:18px}
   .clientbox,.shoot-block{padding:18px}
 }
+
+/* A modest type lift, with clearer secondary text and the same heading scale. */
+@media screen{
+  body{font-size:15px;line-height:1.5}
+  nav button{font-size:14px}
+  header{font-size:13px;color:#62665a}
+  #saveState{font-size:12px;color:#59664b}
+  .eyebrow,aside>.eyebrow,.heading .eyebrow{font-size:11px;color:#62665a;letter-spacing:1.4px}
+  .heading p,.hero p{font-size:14px;color:#626950}
+  .toolbar button,.toolbar select,.toolbar input,.heading .dark{font-size:14px}
+  .metric span,.muted,.form-hint,.note{font-size:13px;color:#62665a}
+  .filters button{font-size:13px;color:#62665a}
+  .filters button.selected{color:#fff}
+  .cardtitle{font-size:18px;line-height:1.35}
+  .cardbody p{font-size:14px;line-height:1.6;color:#62665a;height:auto;min-height:2lh;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .cardmeta{font-size:12px;color:#62665a;gap:8px;flex-wrap:wrap}
+  .badge,.pill{font-size:11px}
+  .pill.ready{color:#4f602f}.pill.progress{color:#805025}
+  .cardeyebrow{font-size:11px;color:#62665a}
+  .addcard{color:#626950}
+  .field,.shoot-controls label{font-size:14px;line-height:1.5}
+  .field input,.field select,.field textarea{font-size:16px;line-height:1.5}
+  .field small,.optional-details summary span{font-size:12px;color:#62665a}
+  .shotrow small{font-size:13px;color:#62665a}
+  .aside-bottom>button{font-size:12px}
+  footer{font-size:11px;color:#62665a;flex-wrap:wrap;gap:10px}
+  @media(max-width:700px){
+    nav button{font-size:13px}
+    .toolbar input,.toolbar select{font-size:16px}
+    .heading .dark{font-size:14px}
+    .metric{gap:8px}.metric span{font-size:12px}
+    .metric i{flex-shrink:0}
+    #saveState{font-size:12px}
+  }
+}
